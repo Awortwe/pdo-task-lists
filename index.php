@@ -63,11 +63,29 @@ if (isset($_POST['addNewUser'])) {
           <td><?php echo $user_name; ?></td>
           <td><?php echo $user_email; ?></td>
           <td><a href="edit-user.php?id=<?php echo $user_id; ?>">Edit</a></td>
-          <td><a href="index.php?id=<?php echo $user_id; ?>">Delete</a></td>
+          <td>
+            <form action="index.php" method="post">
+              <input type="hidden" name="val" value="<?php echo $user_id ?>">
+              <input type="submit" class="btn btn-danger sm" value="Delete" name="submit">
+            </form>
+          </td>
         </tr>
       <?php  } ?>
     </tbody>
   </table>
+
+  <?php 
+    if(isset($_POST['submit']))
+    {
+      $id = $_POST['val'];
+      $sql = "DELETE FROM users WHERE user_id = :id";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute([
+        ':id' => $id
+      ]);
+      header("Location:index.php");
+    }
+  ?>
 
 </div>
 <?php require_once('./includes/footer.php') ?>
