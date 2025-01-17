@@ -62,7 +62,12 @@ if (isset($_POST['addNewUser'])) {
           <th><?php echo $user_id; ?></th>
           <td><?php echo $user_name; ?></td>
           <td><?php echo $user_email; ?></td>
-          <td><a href="edit-user.php?id=<?php echo $user_id; ?>">Edit</a></td>
+          <td>
+            <form action="edit-user.php" method="post">
+              <input type="hidden" name="val" value="<?php echo $user_id ?>">
+              <input type="submit" class="btn btn-primary sm" value="Edit" name="submit">
+            </form>
+          </td>
           <td>
             <form action="index.php" method="post">
               <input type="hidden" name="val" value="<?php echo $user_id ?>">
